@@ -31,20 +31,20 @@ const ReadmeResult = () => {
 
   const [copied,setCopied] = useState(false);
 
-  const onClickCopy = ()=>{
+  const handleCopy = () => {
+    actions.forEach(({ action }) => action(content));
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
 
   return (
     <S.Container ref={containerRef}>
       <S.Actions>
-        {actions.map(({ label, icon: Icon, action }, i) => (
+        {actions.map(({ label, icon: Icon }, i) => (
           <Tooltip key={i} content={label} position="top">
-            <div className={styles.copy_container} onClick={() => {
-              action(content);
-              onClickCopy();
-              }}>
+            <div className={styles.copy_container} onClick={handleCopy}>
               <div className={styles.copy_container_child}>
               <S.Action className={styles.copy_button} >
                 <Icon size={20}  />

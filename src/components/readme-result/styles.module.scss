@@ -1,0 +1,14 @@
+.copy_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.copy_container_child{
+    color: rgb(26, 174, 26);
+}
+
+

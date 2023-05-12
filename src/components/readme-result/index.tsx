@@ -8,6 +8,7 @@ import { Tooltip } from 'components';
 
 import { actions } from './actions';
 import * as S from './styles';
+import styles from "./styles.module.scss"
 
 const ReadmeResult = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,16 +29,34 @@ const ReadmeResult = () => {
     };
   }, []);
 
+  const [copied,setCopied] = useState(false);
+
+  const onClickCopy = ()=>{
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
   return (
     <S.Container ref={containerRef}>
       <S.Actions>
         {actions.map(({ label, icon: Icon, action }, i) => (
           <Tooltip key={i} content={label} position="top">
-            <li>
-              <S.Action onClick={() => action(content)}>
-                <Icon size={16} />
+            <div className={styles.copy_container} onClick={() => {
+              action(content);
+              onClickCopy();
+              }}>
+              <div className={styles.copy_container_child}>
+              <S.Action className={styles.copy_button} >
+                <Icon size={20}  />
               </S.Action>
-            </li>
+              </div>
+              <div className={styles.copy_container_child}>
+               {
+                copied ?  <h3 >Text Copied ! </h3> : null
+               }
+              </div>
+
+            </div>
           </Tooltip>
         ))}
       </S.Actions>
